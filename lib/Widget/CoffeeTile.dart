@@ -1,13 +1,14 @@
+import 'package:coffee_shop/Model/CoffeePojo.dart';
 import 'package:coffee_shop/Screen/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'Text.dart';
 
 class CoffeeTile extends StatefulWidget {
-  final int idx;
+  final CoffeePojo coffeePojo;
 
   const CoffeeTile({
-    super.key,
-    required this.idx
+  super.key,
+  required this.coffeePojo,
   });
 
   @override
@@ -37,7 +38,7 @@ class TileState extends State<CoffeeTile> {
                   width: 120,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/images/coffee3.png"),
+                      image: AssetImage(widget.coffeePojo.img),
                       fit: BoxFit.cover,
                     ),
                     color: Colors.grey.withValues(alpha: 0.3),
@@ -64,7 +65,7 @@ class TileState extends State<CoffeeTile> {
                         Icon(Icons.star, color: Colors.orange, size: 15),
                         SizedBox(width: 5),
                         Text(
-                          "4.5",
+                          widget.coffeePojo.rating,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -76,9 +77,9 @@ class TileState extends State<CoffeeTile> {
 
             SizedBox(height: 5),
 
-            CustomText(txt: coffeeList[widget.idx]),
+            CustomText(txt: widget.coffeePojo.name),
             CustomFontText(
-              txt: coffeeDescriptionList[widget.idx],
+              txt: widget.coffeePojo.desc,
               size: 10,
               color: Colors.white.withValues(alpha: 0.7),
             ),
@@ -87,7 +88,7 @@ class TileState extends State<CoffeeTile> {
               children: [
                 CustomText(txt: "\$", color: Colors.orange),
                 SizedBox(width: 2),
-                CustomText(txt: "120"),
+                CustomText(txt: widget.coffeePojo.price),
                 Spacer(),
                 Container(
                   decoration: BoxDecoration(

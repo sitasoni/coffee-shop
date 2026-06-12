@@ -1,6 +1,8 @@
+import 'package:coffee_shop/Screen/NotesScreen.dart';
 import 'package:coffee_shop/Utils/CtmColor.dart';
 import 'package:flutter/material.dart';
 import 'package:coffee_shop/Widget/CustomStyle.dart';
+import 'package:coffee_shop/Screen/CalenderScreen.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -25,21 +27,46 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           // Divider(thickness: 1, color: Colors.grey.withValues(alpha: 0.8)),
-          ListTile(
-            title: Text("Notes"),
-            leading: Icon(Icons.sticky_note_2, color: CtmColor.primary.withValues(alpha: 0.8)),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotesScreen()),
+              );
+            },
+            child: ListTile(
+              title: Text("Notes"),
+              leading: Icon(
+                Icons.sticky_note_2,
+                color: CtmColor.primary.withValues(alpha: 0.8),
+              ),
+            ),
           ),
 
-          ListTile(
-            title: Text("Calender"),
-            leading: Icon(Icons.calendar_month, color: CtmColor.primary.withValues(alpha: 0.8)),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CalenderScreen()),
+              );
+            },
+            child: ListTile(
+              title: Text("Calender"),
+              leading: Icon(
+                Icons.calendar_month,
+                color: CtmColor.primary.withValues(alpha: 0.8),
+              ),
+            ),
           ),
 
           ListTile(
             title: Text("Calculator"),
             leading: Icon(Icons.calculate, color: CtmColor.primary),
           ),
-          ListTile(title: Text("BMI Calculator"),leading: Icon(Icons.calculate_outlined, color: CtmColor.primary,),),
+          ListTile(
+            title: Text("BMI Calculator"),
+            leading: Icon(Icons.calculate_outlined, color: CtmColor.primary),
+          ),
 
           Spacer(),
 

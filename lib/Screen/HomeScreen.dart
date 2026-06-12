@@ -1,3 +1,4 @@
+import 'package:coffee_shop/Model/CoffeePojo.dart';
 import 'package:coffee_shop/Screen/CoffeeDetails.dart';
 import 'package:flutter/material.dart';
 import '../Widget/CustomDrawer.dart';
@@ -11,8 +12,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
+int active = 0;
 
-List coffeeList = [
+List coffeeType = [
   "Cappuccino",
   "Latte",
   "Espresso",
@@ -21,20 +23,43 @@ List coffeeList = [
   "Macchiato",
 ];
 
-List coffeeDescriptionList = [
-  "Rich espresso blended with creamy milk.",
-  "Smooth and aromatic coffee with a velvety finish.",
-  "Bold roasted beans with deep chocolate notes.",
-  "A refreshing cold brew with a naturally sweet taste.",
-  "Perfectly balanced coffee for any time of day.",
-  "Creamy cappuccino topped with frothy milk foam.",
-  "Strong and intense flavor for coffee lovers.",
-  "Light roast with fruity and floral undertones.",
-  "Warm and comforting coffee with a silky texture.",
-  "Premium handcrafted coffee made from selected beans.",
+List<CoffeePojo> coffeeList = [
+  CoffeePojo(
+    name: "Cappuccino",
+    desc: "Rich espresso blended with creamy milk.",
+    price: "4.50",
+    rating: "4.8",
+    img: "assets/images/cup6.png",
+  ),
+  CoffeePojo(
+    name: "Latte",
+    desc: "Smooth and aromatic coffee with a velvety finish.",
+    price: "5.00",
+    rating: "4.7",
+    img: "assets/images/cup2.png",
+  ),
+  CoffeePojo(
+    name: "Espresso",
+    desc: "Bold roasted beans with deep chocolate notes.",
+    price: "3.50",
+    rating: "4.9",
+    img: "assets/images/cup3.png",
+  ),
+  CoffeePojo(
+    name: "Americano",
+    desc: "A refreshing cold brew with a naturally sweet taste.",
+    price: "4.00",
+    rating: "4.6",
+    img: "assets/images/cup4.png",
+  ),
+  CoffeePojo(
+    name: "Mocha",
+    desc: "Perfectly balanced coffee for any time of day.",
+    price: "5.50",
+    rating: "4.8",
+    img: "assets/images/cup5.jpg",
+  ),
 ];
-
-int active = 0;
 
 class HomeScreenState extends State<HomeScreen> {
   @override
@@ -155,14 +180,14 @@ class HomeScreenState extends State<HomeScreen> {
                   height: 40,
                   width: double.maxFinite,
                   child: ListView.builder(
-                    itemCount: coffeeList.length,
+                    itemCount: coffeeType.length,
                     scrollDirection: Axis.horizontal,
 
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(right: 20),
                         child: Text(
-                          coffeeList[index],
+                          coffeeType[index],
                           style: TextStyle(
                             fontSize: 15,
                             color: index == active
@@ -180,18 +205,24 @@ class HomeScreenState extends State<HomeScreen> {
 
                 SizedBox(
                   height: 230,
-                  child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CoffeeDetails()));
+                  child: ListView.builder(
+                    itemCount: coffeeList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CoffeeDetails(coffeePojo: coffeeList[index]),
+                            ),
+                          );
+                        },
+                        child: CoffeeTile(coffeePojo: coffeeList[index]),
+                      );
+                      // return CoffeeDetails();
                     },
-                    child: ListView.builder(
-                      itemCount: coffeeList.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return CoffeeTile(idx: index);
-                        // return CoffeeDetails();
-                      },
-                    ),
                   ),
                 ),
               ],
